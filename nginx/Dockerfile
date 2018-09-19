@@ -1,4 +1,4 @@
-from nginx:latest
+from nginx:stable
 
 run apt-get update \
  && apt-get dist-upgrade -y \

@@ -1,4 +1,4 @@
-Greenplum OSS
+[Greenplum OSS](https://greenplum.org/install-greenplum-oss-on-ubuntu/)
 
 This image is designed to be suitable to run a local greenplum-oss database.
 

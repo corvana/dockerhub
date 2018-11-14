@@ -4,6 +4,12 @@ export HOME="/gpdb"
 
 source "/gpdb/.bashrc"
 
+if [ -z "$MASTER_HOSTNAME" ]; then
+  MASTER_HOSTNAME="$(hostname)"
+fi
+
+echo "$MASTER_HOSTNAME" > ./hostlist_singlenode
+
 if [ -f "/gpmaster/gpsne-1/pg_hba.conf" ]; then
   echo "Skipping setup because we already have master files."
   gpssh-exkeys -f hostlist_singlenode
@@ -16,11 +22,6 @@ else
   fi
   sed -i "s/#DATABASE_NAME=warehouse/DATABASE_NAME=$DATABASE_NAME/g" gpinitsystem_singlenode
 
-  if [ -z "$MASTER_HOSTNAME" ]; then
-    MASTER_HOSTNAME="$(hostname)"
-  fi
-
-  echo "$MASTER_HOSTNAME" > ./hostlist_singlenode
   sed -i "s/MASTER_HOSTNAME=.*/MASTER_HOSTNAME=$MASTER_HOSTNAME/g" gpinitsystem_singlenode
   gpssh-exkeys -f hostlist_singlenode
   gpinitsystem -c gpinitsystem_singlenode -a

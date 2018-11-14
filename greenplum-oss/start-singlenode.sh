@@ -15,8 +15,12 @@ else
   fi
   sed -i "s/#DATABASE_NAME=warehouse/DATABASE_NAME=$DATABASE_NAME/g" gpinitsystem_singlenode
 
-  echo "$(hostname)" > ./hostlist_singlenode
-  sed -i "s/MASTER_HOSTNAME=.*/MASTER_HOSTNAME=$(hostname)/g" gpinitsystem_singlenode
+  if [ -z "$MASTER_HOSTNAME" ]; then
+    MASTER_HOSTNAME="$(hostname)"
+  fi
+
+  echo "$MASTER_HOSTNAME" > ./hostlist_singlenode
+  sed -i "s/MASTER_HOSTNAME=.*/MASTER_HOSTNAME=$MASTER_HOSTNAME/g" gpinitsystem_singlenode
   gpssh-exkeys -f hostlist_singlenode
   gpinitsystem -c gpinitsystem_singlenode -a
   echo 'host     all         all           0.0.0.0/0  md5' >> /gpmaster/gpsne-1/pg_hba.conf

@@ -20,9 +20,11 @@ else
   if [ -z "$DATABASE_NAME" ]; then
     DATABASE_NAME=warehouse
   fi
-  sed -i "s/#DATABASE_NAME=warehouse/DATABASE_NAME=$DATABASE_NAME/g" gpinitsystem_singlenode
 
+  sed -i "s/#DATABASE_NAME=warehouse/DATABASE_NAME=$DATABASE_NAME/g" gpinitsystem_singlenode
   sed -i "s/MASTER_HOSTNAME=.*/MASTER_HOSTNAME=$MASTER_HOSTNAME/g" gpinitsystem_singlenode
+  sed -i "s/declare -a DATA_DIRECTORY=.*/declare -a DATA_DIRECTORY=($(find / -maxdepth 1 -type d -name 'gpdata*' | sort | tr '\n' ' ' | sed 's/\//\\\//g'))/g" gpinitsystem_singlenode
+
   gpssh-exkeys -f hostlist_singlenode
   gpinitsystem -c gpinitsystem_singlenode -a
   echo 'host     all         all           0.0.0.0/0  md5' >> /gpmaster/gpsne-1/pg_hba.conf

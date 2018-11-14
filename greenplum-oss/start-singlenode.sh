@@ -6,6 +6,7 @@ source "/gpdb/.bashrc"
 
 if [ -f "/gpmaster/gpsne-1/pg_hba.conf" ]; then
   echo "Skipping setup because we already have master files."
+  gpssh-exkeys -f hostlist_singlenode
   gpstart -a
 else
   cp $GPHOME/docs/cli_help/gpconfigs/gpinitsystem_singlenode .

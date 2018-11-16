@@ -3,7 +3,8 @@ FROM ubuntu
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && \
-    apt install -y python2.7 python-pip python-tk && \
+    apt dist-upgrade -y && \
+    apt install -y bash python2.7 python-pip python-tk && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir /python && \
     groupadd -g 4567 python && \

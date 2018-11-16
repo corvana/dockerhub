@@ -1,0 +1,7 @@
+awscli
+jupyter
+matplotlib
+numpy
+pandas
+scikit-learn
+statsmodels

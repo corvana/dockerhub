@@ -16,8 +16,8 @@ RUN  apt update && \
      useradd -g 4321 -u 4321 --shell /bin/bash -d /gpdb gpdb && \
      chown -R gpdb /gpdb && \
      locale-gen en_US.UTF-8 && \
-     mkdir /gpmaster /gpdata1 /gpdata2 && \
-     chown -R gpdb:gpdb /gpmaster /gpdata1 /gpdata2
+     mkdir /gpmaster /gpdata0 && \
+     chown -R gpdb:gpdb /gpmaster /gpdata0
 
 EXPOSE 5432
 EXPOSE 22

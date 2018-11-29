@@ -40,6 +40,7 @@ RUN apt update && \
     chown -R gpdb:gpdb /gpmaster /gpdata0
 
 COPY --from=gpbackup-builder /go/bin/gpbackup /opt/gpdb/bin/gpbackup
+COPY --from=gpbackup-builder /go/bin/gpbackup_helper /opt/gpdb/bin/gpbackup_helper 
 COPY --from=gpbackup-builder /go/bin/gprestore /opt/gpdb/bin/gprestore
 COPY --from=gpbackup-s3-plugin-builder /go/bin/gpbackup_s3_plugin /opt/gpdb/bin/gpbackup_s3_plugin
 

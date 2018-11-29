@@ -7,7 +7,7 @@ RUN go get github.com/greenplum-db/gpbackup-s3-plugin; \
     cd /go/src/github.com/greenplum-db/gpbackup-s3-plugin && \
     git fetch ${REMOTE} ${FETCH}:${FETCH} && \
     git checkout ${FETCH} && \
-    make all
+    make depend build unit
 
 FROM golang as gpbackup-builder
 
@@ -16,7 +16,7 @@ ENV CHECKOUT=tags/1.8.2
 RUN go get github.com/greenplum-db/gpbackup; \
     cd /go/src/github.com/greenplum-db/gpbackup && \
     git checkout ${CHECKOUT} && \
-    make depend build lint unit
+    make depend build unit
 
 FROM ubuntu:xenial
 

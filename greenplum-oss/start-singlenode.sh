@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# https://stackoverflow.com/a/39128574
+sleep infinity & PID=$!
+trap "kill $PID" INT TERM
+
 export HOME="/gpdb"
 
 source "/gpdb/.bashrc"
@@ -40,4 +44,8 @@ else
     fi
   fi
 fi
-journalctl -f
+
+echo "Waiting for sigint or sigterm"
+wait
+
+gpstop -a -M fast

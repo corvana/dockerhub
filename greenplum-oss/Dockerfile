@@ -23,6 +23,7 @@ FROM ubuntu:xenial
 ADD init.sh /root/
 ADD start-singlenode.sh /gpdb/
 ADD gpdb.bashrc /gpdb/.bashrc
+ADD gpdb.bash_profile /gpdb/.bash_profile
 
 RUN apt update && \
     apt install -y sudo software-properties-common gnupg locales && \

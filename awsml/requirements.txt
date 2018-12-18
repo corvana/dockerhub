@@ -3,5 +3,7 @@ jupyter
 matplotlib
 numpy
 pandas
+pyramid-arima
 scikit-learn
 statsmodels
+tsfresh

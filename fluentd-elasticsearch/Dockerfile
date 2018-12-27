@@ -1,4 +1,4 @@
-FROM gcr.io/google-containers/fluentd-elasticsearch:v2.3.1
+FROM gcr.io/google-containers/fluentd-elasticsearch:v2.3.2
 
 RUN apt update && \
     apt dist-upgrade -y && \

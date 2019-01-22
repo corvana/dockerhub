@@ -1,17 +1,15 @@
 FROM golang as gpbackup-s3-plugin-builder
 
-ENV REMOTE=https://github.com/brosander/gpbackup-s3-plugin.git
-ENV FETCH=default-creds
+ENV CHECKOUT=tags/1.1.0
 
 RUN go get github.com/greenplum-db/gpbackup-s3-plugin; \
     cd /go/src/github.com/greenplum-db/gpbackup-s3-plugin && \
-    git fetch ${REMOTE} ${FETCH}:${FETCH} && \
-    git checkout ${FETCH} && \
+    git checkout ${CHECKOUT} && \
     make depend build unit
 
 FROM golang as gpbackup-builder
 
-ENV CHECKOUT=tags/1.8.2
+ENV CHECKOUT=tags/1.9.0
 
 RUN go get github.com/greenplum-db/gpbackup; \
     cd /go/src/github.com/greenplum-db/gpbackup && \

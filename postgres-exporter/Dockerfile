@@ -7,7 +7,7 @@ RUN go get github.com/wrouesnel/postgres_exporter; \
     chmod +X /go/src/github.com/wrouesnel/postgres_exporter/bin/postgres_exporter_${VERSION}_linux-amd64/postgres_exporter && \
     mv /go/src/github.com/wrouesnel/postgres_exporter/bin/postgres_exporter_${VERSION}_linux-amd64/postgres_exporter /postgres_exporter
 
-FROM scratch
+FROM alpine
 COPY --from=builder /postgres_exporter /postgres_exporter
 EXPOSE 9187
-ENTRYPOINT [ "/postgres_exporter" ]
+ENTRYPOINT ["/postgres_exporter"]

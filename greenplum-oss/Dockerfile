@@ -1,6 +1,6 @@
 FROM golang as gpbackup-s3-plugin-builder
 
-ENV CHECKOUT=tags/1.2.0
+ENV CHECKOUT=tags/1.6.0
 
 RUN go get github.com/greenplum-db/gpbackup-s3-plugin; \
     cd /go/src/github.com/greenplum-db/gpbackup-s3-plugin && \
@@ -27,15 +27,15 @@ RUN apt update && \
     locale-gen en_US.UTF-8 && \
     mkdir /gpmaster /gpdata0 && \
     chown -R gpdb:gpdb /gpmaster /gpdata0 && \
-    curl -SL -o greenplum-db.deb https://github.com/greenplum-db/gpdb/releases/download/6.0.0/greenplum-db-6.0.0-ubuntu18.04-amd64.deb && \
+    curl -SL -o greenplum-db.deb https://github.com/greenplum-db/gpdb/releases/download/6.11.2/greenplum-db-6.11.2-ubuntu18.04-amd64.deb && \
     dpkg -i greenplum-db.deb && \
     rm greenplum-db.deb && \
-    curl -SL -o /usr/local/greenplum-db-6.0.0/bin/gpbackup https://github.com/greenplum-db/gpbackup/releases/download/1.13.0/gpbackup && \
-    curl -SL -o /usr/local/greenplum-db-6.0.0/bin/gpbackup_helper https://github.com/greenplum-db/gpbackup/releases/download/1.13.0/gpbackup_helper && \
-    curl -SL -o /usr/local/greenplum-db-6.0.0/bin/gprestore https://github.com/greenplum-db/gpbackup/releases/download/1.13.0/gprestore && \
-    chmod 555 /usr/local/greenplum-db-6.0.0/bin/gpbackup /usr/local/greenplum-db-6.0.0/bin/gpbackup_helper /usr/local/greenplum-db-6.0.0/bin/gprestore
+    curl -SL -o /usr/local/greenplum-db-6.11.2/bin/gpbackup https://github.com/greenplum-db/gpbackup/releases/download/1.13.0/gpbackup && \
+    curl -SL -o /usr/local/greenplum-db-6.11.2/bin/gpbackup_helper https://github.com/greenplum-db/gpbackup/releases/download/1.13.0/gpbackup_helper && \
+    curl -SL -o /usr/local/greenplum-db-6.11.2/bin/gprestore https://github.com/greenplum-db/gpbackup/releases/download/1.13.0/gprestore && \
+    chmod 555 /usr/local/greenplum-db-6.11.2/bin/gpbackup /usr/local/greenplum-db-6.11.2/bin/gpbackup_helper /usr/local/greenplum-db-6.11.2/bin/gprestore
 
-COPY --from=gpbackup-s3-plugin-builder /go/bin/gpbackup_s3_plugin /usr/local/greenplum-db-6.0.0/bin/gpbackup_s3_plugin
+COPY --from=gpbackup-s3-plugin-builder /go/bin/gpbackup_s3_plugin /usr/local/greenplum-db-6.11.2/bin/gpbackup_s3_plugin
 
 EXPOSE 5432
 EXPOSE 22
